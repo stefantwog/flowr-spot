@@ -1,10 +1,14 @@
 package com.flowrspot.service.impl;
 
+import com.flowrspot.domain.User;
 import com.flowrspot.repository.SightingLikeRepository;
+import com.flowrspot.service.CloudinaryService;
+import com.flowrspot.service.FlowerService;
 import com.flowrspot.service.SightingLikeService;
 import com.flowrspot.service.SightingService;
 import com.flowrspot.domain.Sighting;
 import com.flowrspot.repository.SightingRepository;
+import com.flowrspot.web.rest.vm.SightingVM;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
@@ -28,9 +32,15 @@ public class SightingServiceImpl implements SightingService {
 
     private final SightingLikeService sightingLikeService;
 
-    public SightingServiceImpl(SightingRepository sightingRepository, SightingLikeService sightingLikeService) {
+    private final CloudinaryService cloudinaryService;
+
+    private final FlowerService flowerService;
+
+    public SightingServiceImpl(SightingRepository sightingRepository, SightingLikeService sightingLikeService, CloudinaryService cloudinaryService, FlowerService flowerService) {
         this.sightingRepository = sightingRepository;
         this.sightingLikeService = sightingLikeService;
+        this.cloudinaryService = cloudinaryService;
+        this.flowerService = flowerService;
     }
 
     /**
@@ -92,5 +102,17 @@ public class SightingServiceImpl implements SightingService {
         List<Sighting> sightings = sightingRepository.findByUser_Id(id);
         sightings.forEach(sighting -> sightingLikeService.deleteBySighting(sighting.getId()));
         sightingRepository.delete(sightings);
+    }
+
+    @Override
+    public Sighting createSighting(SightingVM sightingVM, User user) {
+        Sighting sighting = new Sighting();
+        sighting.setLatitude(sightingVM.getLatitude());
+        sighting.setLongitude(sightingVM.getLongitude());
+        sighting.setUser(user);
+        sighting.setImage(cloudinaryService.uploadSightingPicture(sightingVM.getImage(), sightingVM.getImage().getName()));
+        sighting.setFlower(flowerService.findOne(sightingVM.getFlowerId()));
+
+        return sightingRepository.save(sighting);
     }
 }

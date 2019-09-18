@@ -1,6 +1,8 @@
 package com.flowrspot.service;
 
 import com.flowrspot.domain.Sighting;
+import com.flowrspot.domain.User;
+import com.flowrspot.web.rest.vm.SightingVM;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
@@ -56,4 +58,11 @@ public interface SightingService {
      * @param id the id of the user
      */
     void deleteByUser(Long id);
+
+    /**
+     * Create sighting out of VM model
+     *
+     * @return created sighting
+     */
+    Sighting createSighting(SightingVM sighting, User user);
 }

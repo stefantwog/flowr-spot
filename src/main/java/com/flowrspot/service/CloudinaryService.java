@@ -4,8 +4,10 @@ import com.cloudinary.Cloudinary;
 import com.cloudinary.utils.ObjectUtils;
 import com.flowrspot.config.ApplicationProperties;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.Map;
 
@@ -35,11 +37,24 @@ public class CloudinaryService {
         return "";
     }
 
-    public String uploadFlowerPicture(File file, String fileName) {
-        return upload(file, applicationProperties.getCloudinary().getFlowerFolder() + fileName);
+    public String uploadFlowerPicture(MultipartFile file, String fileName) {
+        return upload(multipartToFile(file), applicationProperties.getCloudinary().getFlowerFolder() + fileName);
     }
 
-    public String uploadSightingPicture(File file, String fileName) {
-        return upload(file, applicationProperties.getCloudinary().getSightingFolder() + fileName);
+    public String uploadSightingPicture(MultipartFile file, String fileName) {
+        return upload(multipartToFile(file), applicationProperties.getCloudinary().getSightingFolder() + fileName);
+    }
+
+    public File multipartToFile(MultipartFile file){
+        File convFile = new File(file.getOriginalFilename());
+        try {
+            convFile.createNewFile();
+            FileOutputStream fos = new FileOutputStream(convFile);
+            fos.write(file.getBytes());
+            fos.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return convFile;
     }
 }

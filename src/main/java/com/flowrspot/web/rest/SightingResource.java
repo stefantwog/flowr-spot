@@ -11,9 +11,13 @@ import com.flowrspot.web.rest.util.HeaderUtil;
 import com.flowrspot.web.rest.util.PaginationUtil;
 import com.flowrspot.service.dto.SightingCriteria;
 import com.flowrspot.service.SightingQueryService;
+import com.flowrspot.web.rest.vm.SightingVM;
 import io.github.jhipster.web.util.ResponseUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.core.convert.ConversionService;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpHeaders;
@@ -59,12 +63,13 @@ public class SightingResource {
      */
     @PostMapping("/sightings")
     @Timed
-    public ResponseEntity<Sighting> createSighting(@RequestBody Sighting sighting) throws URISyntaxException {
+    public ResponseEntity<Sighting> createSighting(@RequestBody SightingVM sighting) throws URISyntaxException {
         log.debug("REST request to save Sighting : {}", sighting);
         if (sighting.getId() != null) {
             throw new BadRequestAlertException("A new sighting cannot already have an ID", ENTITY_NAME, "idexists");
         }
-        Sighting result = sightingService.save(sighting);
+        Optional<User> user = SecurityUtils.getCurrentUserLogin().flatMap(userService::findOneByLogin);
+        Sighting result = sightingService.createSighting(sighting, user.get());
         return ResponseEntity.created(new URI("/api/sightings/" + result.getId()))
             .headers(HeaderUtil.createEntityCreationAlert(ENTITY_NAME, result.getId().toString()))
             .body(result);
@@ -83,9 +88,6 @@ public class SightingResource {
     @Timed
     public ResponseEntity<Sighting> updateSighting(@RequestBody Sighting sighting) throws URISyntaxException {
         log.debug("REST request to update Sighting : {}", sighting);
-        if (sighting.getId() == null) {
-            return createSighting(sighting);
-        }
         Sighting result = sightingService.save(sighting);
         return ResponseEntity.ok()
             .headers(HeaderUtil.createEntityUpdateAlert(ENTITY_NAME, sighting.getId().toString()))
@@ -109,12 +111,12 @@ public class SightingResource {
     }
 
     /**
-     * GET  /sightings/{flowerId} : get all the sightings by flower.
+     * GET  /flower-sighting/{flowerId} : get all the sightings by flower.
      *
      * @param flowerId id of flower
      * @return the ResponseEntity with status 200 (OK) and the list of sightings in body
      */
-    @GetMapping("/sightings/{flowerId}")
+    @GetMapping("/flower-sightings/{flowerId}")
     @Timed
     public ResponseEntity<List<Sighting>> getAllSightingsByFlower(@PathVariable Long flowerId) {
         log.debug("REST request to get Sightings by flower: {}", flowerId);
