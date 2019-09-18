@@ -139,3 +139,9 @@ jhipster:
 # ===================================================================
 
 application:
+    cloudinary:
+        api-key: 147884793894633
+        api-secret: RsMPV7slJLmzxtfbA-RFCWrcPNE
+        name: dhgzlngmh
+        flower-folder: flower/
+        sighting-folder: sighting/

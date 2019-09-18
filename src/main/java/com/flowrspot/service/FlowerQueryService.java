@@ -78,9 +78,6 @@ public class FlowerQueryService extends QueryService<Flower> {
             if (criteria.getImage() != null) {
                 specification = specification.and(buildStringSpecification(criteria.getImage(), Flower_.image));
             }
-            if (criteria.getSightingsId() != null) {
-                specification = specification.and(buildReferringEntitySpecification(criteria.getSightingsId(), Flower_.sightings, Sighting_.id));
-            }
         }
         return specification;
     }
