@@ -5,6 +5,7 @@ import com.flowrspot.domain.SightingLike;
 import com.flowrspot.domain.User;
 import com.flowrspot.security.SecurityUtils;
 import com.flowrspot.service.SightingLikeService;
+import com.flowrspot.service.SightingService;
 import com.flowrspot.service.UserService;
 import com.flowrspot.web.rest.errors.BadRequestAlertException;
 import com.flowrspot.web.rest.util.HeaderUtil;
@@ -42,12 +43,15 @@ public class SightingLikeResource {
 
     private final SightingLikeQueryService sightingLikeQueryService;
 
+    private final SightingService sightingService;
+
     private final UserService userService;
 
-    public SightingLikeResource(SightingLikeService sightingLikeService, SightingLikeQueryService sightingLikeQueryService, UserService userService) {
+    public SightingLikeResource(SightingLikeService sightingLikeService, SightingLikeQueryService sightingLikeQueryService, UserService userService, SightingService sightingService) {
         this.sightingLikeService = sightingLikeService;
         this.sightingLikeQueryService = sightingLikeQueryService;
         this.userService = userService;
+        this.sightingService = sightingService;
     }
 
     /**
@@ -66,6 +70,30 @@ public class SightingLikeResource {
         }
         SightingLike result = sightingLikeService.save(sightingLike);
         return ResponseEntity.created(new URI("/api/sighting-likes/" + result.getId()))
+            .headers(HeaderUtil.createEntityCreationAlert(ENTITY_NAME, result.getId().toString()))
+            .body(result);
+    }
+
+    /**
+     * POST  /like-sighting/{sightingId} : Like sighting.
+     *
+     * @param sightingId id of sighting to like
+     * @return the ResponseEntity with status 201 (Created) and with body the new sightingLike, or with status 400 (Bad Request) if the sighting doesn't exist or user is not logged in
+     * @throws URISyntaxException if the Location URI syntax is incorrect
+     */
+    @PostMapping("/like-sighting/{sightingId}")
+    @Timed
+    public ResponseEntity<SightingLike> likeSighting(@PathVariable Long sightingId) throws URISyntaxException {
+        log.debug("REST request to like sighting : {}", sightingId);
+        if (sightingService.findOne(sightingId)== null) {
+            throw new BadRequestAlertException("There is no sighting with id : " + sightingId, ENTITY_NAME, "sightingnonexist");
+        }
+        Optional<User> user = SecurityUtils.getCurrentUserLogin().flatMap(userService::findOneByLogin);
+        if(!user.isPresent()){
+            throw new BadRequestAlertException("You have to be logged in in order to like sighting", ENTITY_NAME, "mustbeloggedin");
+        }
+        SightingLike result = sightingLikeService.likeSighting(sightingService.findOne(sightingId), user.get());
+        return ResponseEntity.created(new URI("/api/like-sighting/" + sightingId))
             .headers(HeaderUtil.createEntityCreationAlert(ENTITY_NAME, result.getId().toString()))
             .body(result);
     }

@@ -1,6 +1,8 @@
 package com.flowrspot.service;
 
+import com.flowrspot.domain.Sighting;
 import com.flowrspot.domain.SightingLike;
+import com.flowrspot.domain.User;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
@@ -53,4 +55,6 @@ public interface SightingLikeService {
      * @param id the id of the user
      */
     void deleteByUser(Long id);
+
+    SightingLike likeSighting(Sighting sighting, User user);
 }

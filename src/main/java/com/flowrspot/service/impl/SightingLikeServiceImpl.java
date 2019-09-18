@@ -1,5 +1,7 @@
 package com.flowrspot.service.impl;
 
+import com.flowrspot.domain.Sighting;
+import com.flowrspot.domain.User;
 import com.flowrspot.service.SightingLikeService;
 import com.flowrspot.domain.SightingLike;
 import com.flowrspot.repository.SightingLikeRepository;
@@ -83,5 +85,13 @@ public class SightingLikeServiceImpl implements SightingLikeService {
     @Override
     public void deleteByUser(Long id) {
         sightingLikeRepository.deleteByUser_Id(id);
+    }
+
+    @Override
+    public SightingLike likeSighting(Sighting sighting, User user) {
+        SightingLike like = new SightingLike();
+        like.setSighting(sighting);
+        like.setUser(user);
+        return sightingLikeRepository.save(like);
     }
 }
