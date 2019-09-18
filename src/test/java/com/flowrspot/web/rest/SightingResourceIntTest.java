@@ -7,6 +7,7 @@ import com.flowrspot.domain.SightingLike;
 import com.flowrspot.domain.Flower;
 import com.flowrspot.repository.SightingRepository;
 import com.flowrspot.service.SightingService;
+import com.flowrspot.service.UserService;
 import com.flowrspot.web.rest.errors.ExceptionTranslator;
 import com.flowrspot.service.dto.SightingCriteria;
 import com.flowrspot.service.SightingQueryService;
@@ -71,6 +72,9 @@ public class SightingResourceIntTest {
     private ExceptionTranslator exceptionTranslator;
 
     @Autowired
+    private UserService userService;
+
+    @Autowired
     private EntityManager em;
 
     private MockMvc restSightingMockMvc;
@@ -80,7 +84,7 @@ public class SightingResourceIntTest {
     @Before
     public void setup() {
         MockitoAnnotations.initMocks(this);
-        final SightingResource sightingResource = new SightingResource(sightingService, sightingQueryService);
+        final SightingResource sightingResource = new SightingResource(sightingService, sightingQueryService, userService);
         this.restSightingMockMvc = MockMvcBuilders.standaloneSetup(sightingResource)
             .setCustomArgumentResolvers(pageableArgumentResolver)
             .setControllerAdvice(exceptionTranslator)

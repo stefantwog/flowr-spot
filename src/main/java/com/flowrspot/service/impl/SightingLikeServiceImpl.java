@@ -74,4 +74,14 @@ public class SightingLikeServiceImpl implements SightingLikeService {
         log.debug("Request to delete SightingLike : {}", id);
         sightingLikeRepository.delete(id);
     }
+
+    @Override
+    public void deleteBySighting(Long id) {
+        sightingLikeRepository.deleteBySighting_Id(id);
+    }
+
+    @Override
+    public void deleteByUser(Long id) {
+        sightingLikeRepository.deleteByUser_Id(id);
+    }
 }

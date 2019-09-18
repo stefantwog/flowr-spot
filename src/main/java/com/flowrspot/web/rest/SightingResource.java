@@ -2,7 +2,10 @@ package com.flowrspot.web.rest;
 
 import com.codahale.metrics.annotation.Timed;
 import com.flowrspot.domain.Sighting;
+import com.flowrspot.domain.User;
+import com.flowrspot.security.SecurityUtils;
 import com.flowrspot.service.SightingService;
+import com.flowrspot.service.UserService;
 import com.flowrspot.web.rest.errors.BadRequestAlertException;
 import com.flowrspot.web.rest.util.HeaderUtil;
 import com.flowrspot.web.rest.util.PaginationUtil;
@@ -39,9 +42,12 @@ public class SightingResource {
 
     private final SightingQueryService sightingQueryService;
 
-    public SightingResource(SightingService sightingService, SightingQueryService sightingQueryService) {
+    private final UserService userService;
+
+    public SightingResource(SightingService sightingService, SightingQueryService sightingQueryService, UserService userService) {
         this.sightingService = sightingService;
         this.sightingQueryService = sightingQueryService;
+        this.userService = userService;
     }
 
     /**
@@ -142,5 +148,21 @@ public class SightingResource {
         log.debug("REST request to delete Sighting : {}", id);
         sightingService.delete(id);
         return ResponseEntity.ok().headers(HeaderUtil.createEntityDeletionAlert(ENTITY_NAME, id.toString())).build();
+    }
+
+    /**
+     * DELETE  /my-sightings : delete current user sightings.
+     *
+     * @return the ResponseEntity with status 200 (OK)
+     */
+    @DeleteMapping("/my-sightings")
+    @Timed
+    public ResponseEntity<Void> deleteMySighting() {
+        log.debug("REST request to delete current user Sighting");
+        Optional<User> user = SecurityUtils.getCurrentUserLogin().flatMap(userService::findOneByLogin);
+        if(user.isPresent()){
+            sightingService.deleteByUser(user.get().getId());
+        }
+        return ResponseEntity.ok().headers(HeaderUtil.createEntityDeletionAlert(ENTITY_NAME, user.get().getEmail())).build();
     }
 }

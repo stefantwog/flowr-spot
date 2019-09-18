@@ -2,7 +2,10 @@ package com.flowrspot.web.rest;
 
 import com.codahale.metrics.annotation.Timed;
 import com.flowrspot.domain.SightingLike;
+import com.flowrspot.domain.User;
+import com.flowrspot.security.SecurityUtils;
 import com.flowrspot.service.SightingLikeService;
+import com.flowrspot.service.UserService;
 import com.flowrspot.web.rest.errors.BadRequestAlertException;
 import com.flowrspot.web.rest.util.HeaderUtil;
 import com.flowrspot.web.rest.util.PaginationUtil;
@@ -39,9 +42,12 @@ public class SightingLikeResource {
 
     private final SightingLikeQueryService sightingLikeQueryService;
 
-    public SightingLikeResource(SightingLikeService sightingLikeService, SightingLikeQueryService sightingLikeQueryService) {
+    private final UserService userService;
+
+    public SightingLikeResource(SightingLikeService sightingLikeService, SightingLikeQueryService sightingLikeQueryService, UserService userService) {
         this.sightingLikeService = sightingLikeService;
         this.sightingLikeQueryService = sightingLikeQueryService;
+        this.userService = userService;
     }
 
     /**
@@ -128,5 +134,21 @@ public class SightingLikeResource {
         log.debug("REST request to delete SightingLike : {}", id);
         sightingLikeService.delete(id);
         return ResponseEntity.ok().headers(HeaderUtil.createEntityDeletionAlert(ENTITY_NAME, id.toString())).build();
+    }
+
+    /**
+     * DELETE  /my-likes : delete current user likes.
+     *
+     * @return the ResponseEntity with status 200 (OK)
+     */
+    @DeleteMapping("/my-likes")
+    @Timed
+    public ResponseEntity<Void> deleteMyLikes() {
+        log.debug("REST request to delete current user Likes");
+        Optional<User> user = SecurityUtils.getCurrentUserLogin().flatMap(userService::findOneByLogin);
+        if(user.isPresent()){
+            sightingLikeService.deleteByUser(user.get().getId());
+        }
+        return ResponseEntity.ok().headers(HeaderUtil.createEntityDeletionAlert(ENTITY_NAME, user.get().getEmail())).build();
     }
 }

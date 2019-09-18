@@ -49,4 +49,11 @@ public interface SightingService {
      * @return the list of entities
      */
     List<Sighting> findByFlower(Long flowerId);
+
+    /**
+     * Delete the sightings by user.
+     *
+     * @param id the id of the user
+     */
+    void deleteByUser(Long id);
 }

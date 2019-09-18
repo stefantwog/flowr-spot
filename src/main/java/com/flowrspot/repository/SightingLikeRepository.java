@@ -13,4 +13,7 @@ import org.springframework.data.jpa.repository.*;
 @Repository
 public interface SightingLikeRepository extends JpaRepository<SightingLike, Long>, JpaSpecificationExecutor<SightingLike> {
 
+    void deleteBySighting_Id(Long sightingId);
+
+    void deleteByUser_Id(Long userId);
 }

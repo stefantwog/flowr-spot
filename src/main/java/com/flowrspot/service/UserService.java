@@ -215,6 +215,10 @@ public class UserService {
         });
     }
 
+    public Optional<User> findOneByLogin(String login) {
+        return userRepository.findOneByLogin(login);
+    }
+
     public void changePassword(String password) {
         SecurityUtils.getCurrentUserLogin()
             .flatMap(userRepository::findOneByLogin)

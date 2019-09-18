@@ -16,4 +16,8 @@ import java.util.List;
 public interface SightingRepository extends JpaRepository<Sighting, Long>, JpaSpecificationExecutor<Sighting> {
 
     List<Sighting> findByFlower_Id(Long flowerId);
+
+    List<Sighting> findByUser_Id(Long flowerId);
+
+    void deleteByUser_Id(Long id);
 }

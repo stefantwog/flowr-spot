@@ -1,5 +1,7 @@
 package com.flowrspot.service.impl;
 
+import com.flowrspot.repository.SightingLikeRepository;
+import com.flowrspot.service.SightingLikeService;
 import com.flowrspot.service.SightingService;
 import com.flowrspot.domain.Sighting;
 import com.flowrspot.repository.SightingRepository;
@@ -24,8 +26,11 @@ public class SightingServiceImpl implements SightingService {
 
     private final SightingRepository sightingRepository;
 
-    public SightingServiceImpl(SightingRepository sightingRepository) {
+    private final SightingLikeService sightingLikeService;
+
+    public SightingServiceImpl(SightingRepository sightingRepository, SightingLikeService sightingLikeService) {
         this.sightingRepository = sightingRepository;
+        this.sightingLikeService = sightingLikeService;
     }
 
     /**
@@ -80,5 +85,12 @@ public class SightingServiceImpl implements SightingService {
     @Override
     public List<Sighting> findByFlower(Long flowerId) {
         return sightingRepository.findByFlower_Id(flowerId);
+    }
+
+    @Override
+    public void deleteByUser(Long id) {
+        List<Sighting> sightings = sightingRepository.findByUser_Id(id);
+        sightings.forEach(sighting -> sightingLikeService.deleteBySighting(sighting.getId()));
+        sightingRepository.delete(sightings);
     }
 }

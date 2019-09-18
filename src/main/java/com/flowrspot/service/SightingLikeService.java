@@ -39,4 +39,18 @@ public interface SightingLikeService {
      * @param id the id of the entity
      */
     void delete(Long id);
+
+    /**
+     * Delete the sighting likes by sighting.
+     *
+     * @param id the id of the sighting
+     */
+    void deleteBySighting(Long id);
+
+    /**
+     * Delete the sighting likes by user.
+     *
+     * @param id the id of the user
+     */
+    void deleteByUser(Long id);
 }
