@@ -40,6 +40,10 @@ public class Sighting implements Serializable {
 	@ManyToOne
     private User user;
 
+    @Lob
+    @Column(name = "quote")
+    private String quote;
+
 
     public Long getId() {
         return id;
@@ -101,6 +105,22 @@ public class Sighting implements Serializable {
         this.flower = flower;
     }
 
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    public String getQuote() {
+        return quote;
+    }
+
+    public void setQuote(String quote) {
+        this.quote = quote;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -131,11 +151,5 @@ public class Sighting implements Serializable {
             "}";
     }
 
-    public User getUser() {
-        return user;
-    }
 
-    public void setUser(User user) {
-        this.user = user;
-    }
 }

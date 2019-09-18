@@ -8,8 +8,7 @@
     <include file="config/liquibase/changelog/20190918113929_added_entity_Flower.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20190918113930_added_entity_Sighting.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20190918113931_added_entity_SightingLike.xml" relativeToChangelogFile="false"/>
-    <!-- jhipster-needle-liquibase-add-changelog - JHipster will add liquibase changelogs here -->
     <include file="config/liquibase/changelog/20190918113930_added_entity_constraints_Sighting.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20190918113931_added_entity_constraints_SightingLike.xml" relativeToChangelogFile="false"/>
-    <!-- jhipster-needle-liquibase-add-constraints-changelog - JHipster will add liquibase constraints changelogs here -->
+    <include file="config/liquibase/changelog/20190918165831_added_quote_to_Sighting.xml" relativeToChangelogFile="false"/>
 </databaseChangeLog>
