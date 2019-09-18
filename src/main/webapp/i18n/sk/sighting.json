@@ -1,0 +1,26 @@
+
+{
+    "flowrSpotApp": {
+        "sighting" : {
+            "home": {
+                "title": "Sightings",
+                "createLabel": "Pridať Sighting",
+                "createOrEditLabel": "Pridať alebo upraviť Sighting"
+            },
+            "created": "Bol vytvorený potomok entity Sighting s identifikátorom {{ param }}",
+            "updated": "Potomok entity Sighting s identifikátorom {{ param }} bol upravený.",
+            "deleted": "Potomok entity Sighting s identifikátorom {{ param }} bol vymazaný.",
+            "delete": {
+                "question": "Ste si istý, že chcete vymazať Sighting {{ id }}?"
+            },
+            "detail": {
+                "title": "Sighting"
+            },
+            "longitude": "Longitude",
+            "latitude": "Latitude",
+            "image": "Image",
+            "likes": "Likes",
+            "flower": "Flower"
+        }
+    }
+}

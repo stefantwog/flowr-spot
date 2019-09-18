@@ -1,0 +1,25 @@
+
+{
+    "flowrSpotApp": {
+        "flower" : {
+            "home": {
+                "title": "Flowers",
+                "createLabel": "Pridať Flower",
+                "createOrEditLabel": "Pridať alebo upraviť Flower"
+            },
+            "created": "Bol vytvorený potomok entity Flower s identifikátorom {{ param }}",
+            "updated": "Potomok entity Flower s identifikátorom {{ param }} bol upravený.",
+            "deleted": "Potomok entity Flower s identifikátorom {{ param }} bol vymazaný.",
+            "delete": {
+                "question": "Ste si istý, že chcete vymazať Flower {{ id }}?"
+            },
+            "detail": {
+                "title": "Flower"
+            },
+            "name": "Name",
+            "image": "Image",
+            "description": "Description",
+            "sightings": "Sightings"
+        }
+    }
+}

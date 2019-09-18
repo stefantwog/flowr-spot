@@ -42,6 +42,11 @@ public class CacheConfiguration {
             cm.createCache(com.flowrspot.domain.Authority.class.getName(), jcacheConfiguration);
             cm.createCache(com.flowrspot.domain.User.class.getName() + ".authorities", jcacheConfiguration);
             cm.createCache(com.flowrspot.domain.SocialUserConnection.class.getName(), jcacheConfiguration);
+            cm.createCache(com.flowrspot.domain.Flower.class.getName(), jcacheConfiguration);
+            cm.createCache(com.flowrspot.domain.Flower.class.getName() + ".sightings", jcacheConfiguration);
+            cm.createCache(com.flowrspot.domain.Sighting.class.getName(), jcacheConfiguration);
+            cm.createCache(com.flowrspot.domain.Sighting.class.getName() + ".likes", jcacheConfiguration);
+            cm.createCache(com.flowrspot.domain.SightingLike.class.getName(), jcacheConfiguration);
             // jhipster-needle-ehcache-add-entry
         };
     }

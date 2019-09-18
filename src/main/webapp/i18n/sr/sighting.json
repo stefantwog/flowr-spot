@@ -1,0 +1,26 @@
+
+{
+    "flowrSpotApp": {
+        "sighting" : {
+            "home": {
+                "title": "Sightings",
+                "createLabel": "Kreiraj novi Sighting",
+                "createOrEditLabel": "Kreirajte ili izmenite Sighting"
+            },
+            "created": "Kreiran je novi Sighting pod nazivom {{ param }}",
+            "updated": "Sighting pod nazivom {{ param }} je ažuriran",
+            "deleted": "Sighting pod nazivom {{ param }} je obrisan",
+            "delete": {
+                "question": "Da li ste sigurni da želite da obrišete Sighting pod nazivom {{ id }}?"
+            },
+            "detail": {
+                "title": "Sighting"
+            },
+            "longitude": "Longitude",
+            "latitude": "Latitude",
+            "image": "Image",
+            "likes": "Likes",
+            "flower": "Flower"
+        }
+    }
+}

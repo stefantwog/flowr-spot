@@ -1,0 +1,22 @@
+
+{
+    "flowrSpotApp": {
+        "sightingLike" : {
+            "home": {
+                "title": "Sighting Likes",
+                "createLabel": "Pridať Sighting Like",
+                "createOrEditLabel": "Pridať alebo upraviť Sighting Like"
+            },
+            "created": "Bol vytvorený potomok entity Sighting Like s identifikátorom {{ param }}",
+            "updated": "Potomok entity Sighting Like s identifikátorom {{ param }} bol upravený.",
+            "deleted": "Potomok entity Sighting Like s identifikátorom {{ param }} bol vymazaný.",
+            "delete": {
+                "question": "Ste si istý, že chcete vymazať Sighting Like {{ id }}?"
+            },
+            "detail": {
+                "title": "Sighting Like"
+            },
+            "sighting": "Sighting"
+        }
+    }
+}

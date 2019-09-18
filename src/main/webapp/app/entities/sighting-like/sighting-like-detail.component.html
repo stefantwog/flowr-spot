@@ -1,0 +1,28 @@
+
+<div *ngIf="sightingLike">
+    <h2><span jhiTranslate="flowrSpotApp.sightingLike.detail.title">Sighting Like</span> {{sightingLike.id}}</h2>
+    <hr>
+    <jhi-alert-error></jhi-alert-error>
+    <dl class="row-md jh-entity-details">
+        <dt><span jhiTranslate="flowrSpotApp.sightingLike.sighting">Sighting</span></dt>
+        <dd>
+            <div *ngIf="sightingLike.sighting">
+                <a [routerLink]="['/sighting', sightingLike.sighting?.id]">{{sightingLike.sighting?.name}}</a>
+            </div>
+        </dd>
+    </dl>
+
+    <button type="submit"
+            (click)="previousState()"
+            class="btn btn-info">
+        <span class="fa fa-arrow-left"></span>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
+    </button>
+
+    <button type="button"
+            [routerLink]="['/', { outlets: { popup: 'sighting-like/'+ sightingLike.id + '/edit'} }]"
+            replaceUrl="true"
+            queryParamsHandling="merge"
+            class="btn btn-primary">
+        <span class="fa fa-pencil"></span>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
+    </button>
+</div>

@@ -1,0 +1,25 @@
+
+{
+    "flowrSpotApp": {
+        "flower" : {
+            "home": {
+                "title": "Flowers",
+                "createLabel": "Kreiraj novi Flower",
+                "createOrEditLabel": "Kreirajte ili izmenite Flower"
+            },
+            "created": "Kreiran je novi Flower pod nazivom {{ param }}",
+            "updated": "Flower pod nazivom {{ param }} je ažuriran",
+            "deleted": "Flower pod nazivom {{ param }} je obrisan",
+            "delete": {
+                "question": "Da li ste sigurni da želite da obrišete Flower pod nazivom {{ id }}?"
+            },
+            "detail": {
+                "title": "Flower"
+            },
+            "name": "Name",
+            "image": "Image",
+            "description": "Description",
+            "sightings": "Sightings"
+        }
+    }
+}

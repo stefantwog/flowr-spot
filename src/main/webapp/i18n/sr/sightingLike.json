@@ -1,0 +1,22 @@
+
+{
+    "flowrSpotApp": {
+        "sightingLike" : {
+            "home": {
+                "title": "Sighting Likes",
+                "createLabel": "Kreiraj novi Sighting Like",
+                "createOrEditLabel": "Kreirajte ili izmenite Sighting Like"
+            },
+            "created": "Kreiran je novi Sighting Like pod nazivom {{ param }}",
+            "updated": "Sighting Like pod nazivom {{ param }} je ažuriran",
+            "deleted": "Sighting Like pod nazivom {{ param }} je obrisan",
+            "delete": {
+                "question": "Da li ste sigurni da želite da obrišete Sighting Like pod nazivom {{ id }}?"
+            },
+            "detail": {
+                "title": "Sighting Like"
+            },
+            "sighting": "Sighting"
+        }
+    }
+}

@@ -1,0 +1,25 @@
+
+{
+    "flowrSpotApp": {
+        "flower" : {
+            "home": {
+                "title": "Flowers",
+                "createLabel": "Create a new Flower",
+                "createOrEditLabel": "Create or edit a Flower"
+            },
+            "created": "A new Flower is created with identifier {{ param }}",
+            "updated": "A Flower is updated with identifier {{ param }}",
+            "deleted": "A Flower is deleted with identifier {{ param }}",
+            "delete": {
+                "question": "Are you sure you want to delete Flower {{ id }}?"
+            },
+            "detail": {
+                "title": "Flower"
+            },
+            "name": "Name",
+            "image": "Image",
+            "description": "Description",
+            "sightings": "Sightings"
+        }
+    }
+}

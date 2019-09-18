@@ -1,0 +1,40 @@
+
+<div *ngIf="sighting">
+    <h2><span jhiTranslate="flowrSpotApp.sighting.detail.title">Sighting</span> {{sighting.id}}</h2>
+    <hr>
+    <jhi-alert-error></jhi-alert-error>
+    <dl class="row-md jh-entity-details">
+        <dt><span jhiTranslate="flowrSpotApp.sighting.longitude">Longitude</span></dt>
+        <dd>
+            <span>{{sighting.longitude}}</span>
+        </dd>
+        <dt><span jhiTranslate="flowrSpotApp.sighting.latitude">Latitude</span></dt>
+        <dd>
+            <span>{{sighting.latitude}}</span>
+        </dd>
+        <dt><span jhiTranslate="flowrSpotApp.sighting.image">Image</span></dt>
+        <dd>
+            <span>{{sighting.image}}</span>
+        </dd>
+        <dt><span jhiTranslate="flowrSpotApp.sighting.flower">Flower</span></dt>
+        <dd>
+            <div *ngIf="sighting.flower">
+                <a [routerLink]="['/flower', sighting.flower?.id]">{{sighting.flower?.name}}</a>
+            </div>
+        </dd>
+    </dl>
+
+    <button type="submit"
+            (click)="previousState()"
+            class="btn btn-info">
+        <span class="fa fa-arrow-left"></span>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
+    </button>
+
+    <button type="button"
+            [routerLink]="['/', { outlets: { popup: 'sighting/'+ sighting.id + '/edit'} }]"
+            replaceUrl="true"
+            queryParamsHandling="merge"
+            class="btn btn-primary">
+        <span class="fa fa-pencil"></span>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
+    </button>
+</div>

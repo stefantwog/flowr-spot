@@ -1,0 +1,22 @@
+
+{
+    "flowrSpotApp": {
+        "sightingLike" : {
+            "home": {
+                "title": "Sighting Likes",
+                "createLabel": "Create a new Sighting Like",
+                "createOrEditLabel": "Create or edit a Sighting Like"
+            },
+            "created": "A new Sighting Like is created with identifier {{ param }}",
+            "updated": "A Sighting Like is updated with identifier {{ param }}",
+            "deleted": "A Sighting Like is deleted with identifier {{ param }}",
+            "delete": {
+                "question": "Are you sure you want to delete Sighting Like {{ id }}?"
+            },
+            "detail": {
+                "title": "Sighting Like"
+            },
+            "sighting": "Sighting"
+        }
+    }
+}
