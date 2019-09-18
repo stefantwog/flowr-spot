@@ -103,6 +103,20 @@ public class SightingResource {
     }
 
     /**
+     * GET  /sightings/{flowerId} : get all the sightings by flower.
+     *
+     * @param flowerId id of flower
+     * @return the ResponseEntity with status 200 (OK) and the list of sightings in body
+     */
+    @GetMapping("/sightings/{flowerId}")
+    @Timed
+    public ResponseEntity<List<Sighting>> getAllSightingsByFlower(@PathVariable Long flowerId) {
+        log.debug("REST request to get Sightings by flower: {}", flowerId);
+        List<Sighting> sightings = sightingService.findByFlower(flowerId);
+        return new ResponseEntity<>(sightings, HttpStatus.OK);
+    }
+
+    /**
      * GET  /sightings/:id : get the "id" sighting.
      *
      * @param id the id of the sighting to retrieve

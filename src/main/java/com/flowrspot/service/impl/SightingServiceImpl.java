@@ -10,6 +10,8 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 
 /**
  * Service Implementation for managing Sighting.
@@ -73,5 +75,10 @@ public class SightingServiceImpl implements SightingService {
     public void delete(Long id) {
         log.debug("Request to delete Sighting : {}", id);
         sightingRepository.delete(id);
+    }
+
+    @Override
+    public List<Sighting> findByFlower(Long flowerId) {
+        return sightingRepository.findByFlower_Id(flowerId);
     }
 }

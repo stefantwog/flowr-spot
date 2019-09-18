@@ -4,6 +4,8 @@ import com.flowrspot.domain.Sighting;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
+import java.util.List;
+
 /**
  * Service Interface for managing Sighting.
  */
@@ -39,4 +41,12 @@ public interface SightingService {
      * @param id the id of the entity
      */
     void delete(Long id);
+
+    /**
+     * Get all the sightings by flower.
+     *
+     * @param flowerId id of flower
+     * @return the list of entities
+     */
+    List<Sighting> findByFlower(Long flowerId);
 }
