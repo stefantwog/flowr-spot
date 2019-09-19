@@ -2,10 +2,7 @@ package com.flowrspot.service.impl;
 
 import com.flowrspot.domain.User;
 import com.flowrspot.repository.SightingLikeRepository;
-import com.flowrspot.service.CloudinaryService;
-import com.flowrspot.service.FlowerService;
-import com.flowrspot.service.SightingLikeService;
-import com.flowrspot.service.SightingService;
+import com.flowrspot.service.*;
 import com.flowrspot.domain.Sighting;
 import com.flowrspot.repository.SightingRepository;
 import com.flowrspot.web.rest.vm.SightingVM;
@@ -36,11 +33,15 @@ public class SightingServiceImpl implements SightingService {
 
     private final FlowerService flowerService;
 
-    public SightingServiceImpl(SightingRepository sightingRepository, SightingLikeService sightingLikeService, CloudinaryService cloudinaryService, FlowerService flowerService) {
+    private final QuoteService quoteService;
+
+    public SightingServiceImpl(SightingRepository sightingRepository, SightingLikeService sightingLikeService, CloudinaryService cloudinaryService, FlowerService flowerService,
+                               QuoteService quoteService) {
         this.sightingRepository = sightingRepository;
         this.sightingLikeService = sightingLikeService;
         this.cloudinaryService = cloudinaryService;
         this.flowerService = flowerService;
+        this.quoteService = quoteService;
     }
 
     /**
@@ -110,8 +111,13 @@ public class SightingServiceImpl implements SightingService {
         sighting.setLatitude(sightingVM.getLatitude());
         sighting.setLongitude(sightingVM.getLongitude());
         sighting.setUser(user);
-        sighting.setImage(cloudinaryService.uploadSightingPicture(sightingVM.getImage(), sightingVM.getImage().getName()));
-        sighting.setFlower(flowerService.findOne(sightingVM.getFlowerId()));
+        if(sightingVM.getImage()!=null) {
+            sighting.setImage(cloudinaryService.uploadSightingPicture(sightingVM.getImage(), sightingVM.getImage().getName()));
+        }
+        if(sightingVM.getFlowerId()!=null) {
+            sighting.setFlower(flowerService.findOne(sightingVM.getFlowerId()));
+        }
+        sighting.setQuote(quoteService.getQuoteOfTheDay());
 
         return sightingRepository.save(sighting);
     }
