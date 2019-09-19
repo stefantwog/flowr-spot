@@ -1,8 +1,10 @@
 package com.flowrspot.service.impl;
 
+import com.flowrspot.service.CloudinaryService;
 import com.flowrspot.service.FlowerService;
 import com.flowrspot.domain.Flower;
 import com.flowrspot.repository.FlowerRepository;
+import com.flowrspot.web.rest.vm.FlowerVM;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
@@ -22,8 +24,11 @@ public class FlowerServiceImpl implements FlowerService {
 
     private final FlowerRepository flowerRepository;
 
-    public FlowerServiceImpl(FlowerRepository flowerRepository) {
+    private final CloudinaryService cloudinaryService;
+
+    public FlowerServiceImpl(FlowerRepository flowerRepository, CloudinaryService cloudinaryService) {
         this.flowerRepository = flowerRepository;
+        this.cloudinaryService = cloudinaryService;
     }
 
     /**
@@ -73,5 +78,17 @@ public class FlowerServiceImpl implements FlowerService {
     public void delete(Long id) {
         log.debug("Request to delete Flower : {}", id);
         flowerRepository.delete(id);
+    }
+
+    @Override
+    public Flower createFlower(FlowerVM flowerVM) {
+        Flower flower = new Flower();
+        flower.setDescription(flowerVM.getDescription());
+        flower.setName(flowerVM.getName());
+        if(flowerVM.getImage()!=null) {
+            flower.setImage(cloudinaryService.uploadSightingPicture(flowerVM.getImage(), flowerVM.getImage().getName()));
+        }
+
+        return flowerRepository.save(flower);
     }
 }

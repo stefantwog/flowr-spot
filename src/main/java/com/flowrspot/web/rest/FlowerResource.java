@@ -8,6 +8,7 @@ import com.flowrspot.web.rest.util.HeaderUtil;
 import com.flowrspot.web.rest.util.PaginationUtil;
 import com.flowrspot.service.dto.FlowerCriteria;
 import com.flowrspot.service.FlowerQueryService;
+import com.flowrspot.web.rest.vm.FlowerVM;
 import io.github.jhipster.web.util.ResponseUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -53,12 +54,12 @@ public class FlowerResource {
      */
     @PostMapping("/flowers")
     @Timed
-    public ResponseEntity<Flower> createFlower(@RequestBody Flower flower) throws URISyntaxException {
+    public ResponseEntity<Flower> createFlower(@RequestBody FlowerVM flower) throws URISyntaxException {
         log.debug("REST request to save Flower : {}", flower);
         if (flower.getId() != null) {
             throw new BadRequestAlertException("A new flower cannot already have an ID", ENTITY_NAME, "idexists");
         }
-        Flower result = flowerService.save(flower);
+        Flower result = flowerService.createFlower(flower);
         return ResponseEntity.created(new URI("/api/flowers/" + result.getId()))
             .headers(HeaderUtil.createEntityCreationAlert(ENTITY_NAME, result.getId().toString()))
             .body(result);
@@ -77,9 +78,6 @@ public class FlowerResource {
     @Timed
     public ResponseEntity<Flower> updateFlower(@RequestBody Flower flower) throws URISyntaxException {
         log.debug("REST request to update Flower : {}", flower);
-        if (flower.getId() == null) {
-            return createFlower(flower);
-        }
         Flower result = flowerService.save(flower);
         return ResponseEntity.ok()
             .headers(HeaderUtil.createEntityUpdateAlert(ENTITY_NAME, flower.getId().toString()))

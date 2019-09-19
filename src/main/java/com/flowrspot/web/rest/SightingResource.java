@@ -139,20 +139,6 @@ public class SightingResource {
     }
 
     /**
-     * DELETE  /sightings/:id : delete the "id" sighting.
-     *
-     * @param id the id of the sighting to delete
-     * @return the ResponseEntity with status 200 (OK)
-     */
-    @DeleteMapping("/sightings/{id}")
-    @Timed
-    public ResponseEntity<Void> deleteSighting(@PathVariable Long id) {
-        log.debug("REST request to delete Sighting : {}", id);
-        sightingService.delete(id);
-        return ResponseEntity.ok().headers(HeaderUtil.createEntityDeletionAlert(ENTITY_NAME, id.toString())).build();
-    }
-
-    /**
      * DELETE  /my-sightings : delete current user sightings.
      *
      * @return the ResponseEntity with status 200 (OK)

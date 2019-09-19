@@ -151,20 +151,6 @@ public class SightingLikeResource {
     }
 
     /**
-     * DELETE  /sighting-likes/:id : delete the "id" sightingLike.
-     *
-     * @param id the id of the sightingLike to delete
-     * @return the ResponseEntity with status 200 (OK)
-     */
-    @DeleteMapping("/sighting-likes/{id}")
-    @Timed
-    public ResponseEntity<Void> deleteSightingLike(@PathVariable Long id) {
-        log.debug("REST request to delete SightingLike : {}", id);
-        sightingLikeService.delete(id);
-        return ResponseEntity.ok().headers(HeaderUtil.createEntityDeletionAlert(ENTITY_NAME, id.toString())).build();
-    }
-
-    /**
      * DELETE  /my-likes : delete current user likes.
      *
      * @return the ResponseEntity with status 200 (OK)

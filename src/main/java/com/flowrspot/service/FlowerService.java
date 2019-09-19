@@ -1,6 +1,7 @@
 package com.flowrspot.service;
 
 import com.flowrspot.domain.Flower;
+import com.flowrspot.web.rest.vm.FlowerVM;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
@@ -39,4 +40,11 @@ public interface FlowerService {
      * @param id the id of the entity
      */
     void delete(Long id);
+
+    /**
+     * Create flower out of VM model
+     *
+     * @return flower sighting
+     */
+    Flower createFlower(FlowerVM flower);
 }
